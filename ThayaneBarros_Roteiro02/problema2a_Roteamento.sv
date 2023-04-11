@@ -10,10 +10,9 @@ module roteador (input logic [3:0] A, B, // Entradas de 4 bits A e B
   
    always_comb begin
 	case(SEL)
-  	1'b0: Saida = A; // Se SEL for 0, transmitir a entrada A
-  	default: Saida = B; // Se SEL for 1, transmitir a entrada B
+  	1'b0: Saida <= A; // Se SEL for 0, transmitir a entrada A
+  	default: Saida <= B; // Se SEL for 1, transmitir a entrada B
 	endcase
   end
 
 endmodule
-

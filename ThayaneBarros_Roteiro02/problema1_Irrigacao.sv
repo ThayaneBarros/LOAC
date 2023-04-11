@@ -10,11 +10,11 @@ module IrrigationControl(
 
   always_comb begin
 	case(U)
-  	2'b00: Saida = 2'b00;
-  	2'b01: Saida = 2'b01;
-  	2'b10: Saida = 2'b10;
-  	2'b11: Saida = 2'b11;
-  	default: Saida = 2'b00; // caso os valores de entrada não sejam válidos, assumimos que as duas áreas estão adequadas
+  	2'b00: Saida <= 2'b00;
+  	2'b01: Saida <= 2'b01;
+  	2'b10: Saida <= 2'b10;
+  	2'b11: Saida <= 2'b11;
+  	default: Saida <= 2'b00; // caso os valores de entrada não sejam válidos, assumimos que as duas áreas estão adequadas
 	endcase
   end
 
