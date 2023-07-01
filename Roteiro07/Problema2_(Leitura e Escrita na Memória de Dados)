@@ -1,0 +1,25 @@
+# Aluna: Thayane Stheffany Silva Barros - 121110604
+# Roteiro 7: Problema 2 - (Leitura e Escrita na Memória de Dados)
+
+.data
+    valor: .word 0xFE    # Define a variável "valor" com o valor 0xFE
+
+.text
+    .globl main
+
+main:
+    # Escrever o valor 0xFE no endereço da memória de dados 0x1000000C
+    lui t0, 0x10000      # Carrega os 20 bits mais significativos do endereço em t0
+    addi t0, t0, 0x000C  # Adiciona os 12 bits menos significativos do endereço em t0
+    li t1, 0xFE          # Carrega o valor 0xFE em t1
+    sw t1, 0(t0)         # Armazena o valor de t1 no endereço especificado por t0
+
+    # Ler o valor 0xFE do endereço da memória de dados 0x1000000C e escrever em x10
+    lui t0, 0x10000      # Carrega os 20 bits mais significativos do endereço em t0
+    addi t0, t0, 0x000C  # Adiciona os 12 bits menos significativos do endereço em t0
+    lw x10, 0(t0)        # Carrega o valor do endereço especificado por t0 em x10
+
+    # Encerra o programa
+    li a7, 10            # Carrega o código da chamada do sistema para encerrar o programa em a7
+    ecall                # Faz a chamada do sistema para encerrar o programa
+

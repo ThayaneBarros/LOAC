@@ -1,0 +1,32 @@
+# Aluna: Thayane Stheffany Silva Barros - 121110604
+# Roteiro 7: Problema 1 - (Fatorial de N)
+
+.data
+	N: .word 5  	    # Valor de N. Digite o valor desejado aqui
+
+.text
+	.globl main
+
+main:
+        lw a0, N 	        # Carrega o valor de N em um registrador
+        jal ra, fatorial 	# Chama a função fatorial
+
+fatorial:
+        addi sp, sp, -4     # Guarda o registrador de retorno
+        sw ra, 0(sp)
+    
+        li t0, 1            # Inicializa o fatorial com 1
+
+loop:
+        beqz a0, fim       # Verifica se N é igual a 0
+        mul t0, t0, a0     # Multiplica o fatorial pelo valor de N
+        addi a0, a0, -1    # Decrementa N
+        j loop             # Volta ao início do loop
+
+fim:
+        mv a0, t0          # Carrega o valor do fatorial no registrador de retorno
+	
+        lw ra, 0(sp)       # Recupera o registrador de retorno
+        addi sp, sp, 4
+
+       nop                 # Encerra o programa

@@ -7,7 +7,7 @@ parameter ADDR_WIDTH = 2; // Tamanho do endereço em bits
 parameter DATA_WIDTH = 4; // Tamanho dos dados de entrada e saída em bits
 
 module ram_rw_4x4 (
-  input logic clk, sel,  // Entradas de clock e seleção               
+  input logic clk, reset, sel, // Entradas de clock, reset e seleção                
   input logic [DATA_WIDTH-1:0] din,   // Dados de entrada
   input logic [ADDR_WIDTH-1:0] addr,  // Endereço
   output logic [DATA_WIDTH-1:0] dout  // Dados de saída
@@ -17,8 +17,20 @@ module ram_rw_4x4 (
   logic [DATA_WIDTH-1:0] mem [0:(1<<ADDR_WIDTH)-1]; 
 
   always_ff @(posedge clk) begin
-    if (sel == 1) mem[addr] <= din;   // O dado de entrada será armazenado na posição de memória 
-    else dout <= mem[addr];           // O dado armazenado na posição de memória correspondente ao endereço será enviado para a saída
+    if (reset) begin
+      // reset da memória
+      for (int i=0; i<(1<<ADDR_WIDTH); i++) begin
+        mem[i] <= '0;
+      end
+    end else begin
+      if (sel == 1) begin
+        // escrita na memória
+        mem[addr] <= din;
+      end else begin
+        // leitura na memória
+        dout <= mem[addr];
+      end
+    end
   end
 
 endmodule
